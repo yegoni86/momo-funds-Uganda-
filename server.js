@@ -73,7 +73,20 @@ app.post("/api/uganda/stk-push", async (req, res) => {
 
     console.log("AUTOPAY RESPONSE:", response.data);
 
-    res.json(response.data);
+const transactionId =
+  response.data?.data?.transaction_id ||
+  response.data?.data?.transactionId ||
+  response.data?.transaction_id ||
+  response.data?.transactionId ||
+  response.data?.data?.reference ||
+  response.data?.reference;
+
+res.json({
+  success: response.data?.success,
+  message: response.data?.message,
+  transactionId,
+  data: response.data?.data || {}
+});
 
   } catch (error) {
     console.log("AUTOPAY ERROR:", error.response?.data || error.message);
