@@ -257,7 +257,8 @@ color:#666;
 <script>
 "use strict";
 
-const BACKEND_URL="https://nyota-program-001-functionality-1.onrender.com";
+// Uses the same Render backend
+const BACKEND_URL="";
 
 const applicant=
 localStorage.getItem("fullName")||
@@ -301,9 +302,8 @@ payBtn.textContent=state?text:"💳 Continue Payment";
 }
 
 function normalizePhone(value){
-let phone=value.replace(/[^\d+]/g,"");
-if(phone.startsWith("+256")) phone=phone.slice(1);
-if(phone.startsWith("07")) phone="256"+phone.slice(1);
+let phone=value.replace(/[^\d]/g,"");
+if(phone.startsWith("0")) phone="256"+phone.slice(1);
 return phone;
 }
 
@@ -326,10 +326,13 @@ setLoading(true,"Processing...");
 setMessage("Sending payment request...");
 
 try{
-const response=await fetch(`${BACKEND_URL}/stk-push`,{
+const response=await fetch(`${BACKEND_URL}/api/uganda/stk-push`,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({phone,amount:processingFee})
+body:JSON.stringify({
+phone:phone,
+amount:processingFee
+})
 });
 
 const data=await readJson(response);
@@ -338,7 +341,11 @@ if(!response.ok||data.success===false){
 throw new Error(data.message||"Payment request failed.");
 }
 
-const transactionId=data.transactionId||data.data?.transactionId||data.checkout_request_id;
+const transactionId=data.data?.transaction_id||data.data?.transactionId||data.transactionId;
+
+if(!transactionId){
+throw new Error("Transaction ID not received.");
+}
 
 setLoading(true,"Waiting...");
 setMessage("Please complete the payment on your phone.");
@@ -356,35 +363,31 @@ const start=Date.now();
 
 while(Date.now()-start<120000){
 try{
-const response=await fetch(`${BACKEND_URL}/payment-status`,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({transactionId})
-});
+const response=await fetch(`${BACKEND_URL}/api/uganda/status/${transactionId}`);
 
 const result=await readJson(response);
 const status=String(result.data?.status||"").toUpperCase();
 
-if(["SUCCESS","COMPLETED","CONFIRMED"].includes(status)){
+if(["SUCCESS","SUCCESSFUL"].includes(status)){
 setMessage("Payment successful. Redirecting...","success");
 setLoading(true,"Confirmed");
 setTimeout(()=>window.location.href="delivery.html",1000);
 return;
 }
 
-if(["FAILED","CANCELLED","EXPIRED"].includes(status)){
+if(["FAILED","CANCELLED"].includes(status)){
 throw new Error("Payment "+status.toLowerCase()+".");
 }
 
 }catch(error){
-if(/failed|cancelled|expired/i.test(error.message)){
+if(/failed|cancelled/i.test(error.message)){
 setMessage(error.message,"error");
 setLoading(false);
 return;
 }
 }
 
-await new Promise(r=>setTimeout(r,3000));
+await new Promise(r=>setTimeout(r,5000));
 }
 
 setMessage("Payment confirmation timed out.","error");
