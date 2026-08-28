@@ -3,910 +3,313 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Application - Step 2</title>
+<title>MoMo Funds Uganda - Step 2</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,Arial,sans-serif;
 }
 
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0B7A2F, #2563EB);
-    padding: 20px;
+body{
+background:linear-gradient(135deg,#FFD100,#F5B000);
+padding:12px;
+min-height:100vh;
 }
 
-.container {
-    max-width: 750px;
-    margin: auto;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+.container{
+max-width:420px;
+margin:auto;
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,.18);
 }
 
-.header {
-    background: linear-gradient(135deg, #0B7A2F, #2563EB);
-    color: white;
-    padding: 30px;
-    text-align: center;
+.header{
+background:linear-gradient(135deg,#FFD100,#F5B000);
+color:#000;
+text-align:center;
+padding:22px 16px;
 }
 
-.header h1 {
-    font-size: 28px;
-    margin-bottom: 8px;
+.header h1{
+font-size:22px;
+margin-bottom:4px;
+font-weight:800;
 }
 
-.progress {
-    height: 10px;
-    background: rgba(255,255,255,.3);
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 18px 0 12px;
+.header p{
+font-size:14px;
 }
 
-.progress-fill {
-    width: 66.66%;
-    height: 100%;
-    background: white;
+.content{
+padding:18px;
 }
 
-.content {
-    padding: 30px;
+.title{
+font-size:22px;
+font-weight:bold;
+color:#111827;
+margin-bottom:6px;
 }
 
-.notice {
-    background: #EFF6FF;
-    border-left: 5px solid #2563EB;
-    padding: 18px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    line-height: 1.6;
+.subtitle{
+font-size:14px;
+color:#666;
+margin-bottom:18px;
 }
 
-.card {
-    background: #F8FAFC;
-    border-left: 5px solid #16A34A;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 25px;
+.option{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px;
+border:2px solid #E5E7EB;
+border-radius:12px;
+margin-bottom:10px;
+cursor:pointer;
+transition:.2s;
 }
 
-.card h2 {
-    color: #0B7A2F;
-    margin-bottom: 15px;
+.option:hover{
+border-color:#FFD100;
+background:#FFFBE6;
 }
 
-.card p {
-    color: #4B5563;
-    margin-bottom: 20px;
+.option input{
+display:none;
 }
 
-/* APPLICATION SUMMARY */
-
-.summary {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    overflow: hidden;
+.option.active{
+border-color:#FFD100;
+background:#FFF8D6;
 }
 
-.summary-title {
-    background: #F0FDF4;
-    color: #166534;
-    font-weight: bold;
-    padding: 15px;
-    font-size: 18px;
+.icon{
+font-size:26px;
+width:34px;
+text-align:center;
 }
 
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 13px 15px;
-    border-bottom: 1px solid #E5E7EB;
+.text{
+flex:1;
 }
 
-.summary-row:last-child {
-    border-bottom: none;
+.text h3{
+font-size:15px;
+margin-bottom:3px;
+color:#111827;
 }
 
-.summary-label {
-    font-weight: 600;
-    color: #374151;
+.text p{
+font-size:12px;
+color:#6B7280;
+line-height:1.35;
 }
 
-.summary-value {
-    color: #111827;
-    text-align: right;
-    word-break: break-word;
+.checkmark{
+width:24px;
+height:24px;
+border:2px solid #C7C7C7;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:bold;
+background:white;
+transition:.2s;
 }
 
-/* PURPOSE OPTIONS */
-
-.option {
-    display: block;
-    margin-bottom: 12px;
-    cursor: pointer;
+.option.active .checkmark{
+background:#000;
+border-color:#000;
+color:#FFD100;
 }
 
-.option input {
-    display: none;
+.option.active .checkmark::after{
+content:"✓";
 }
 
-.option-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: white;
-    border: 2px solid #E5E7EB;
-    border-radius: 10px;
-    transition: .2s;
+.selected-box{
+margin-top:14px;
+padding:12px;
+border-radius:10px;
+background:#F3F4F6;
+font-size:14px;
+font-weight:bold;
 }
 
-.option-content:hover {
-    border-color: #2563EB;
-    background: #EFF6FF;
+button{
+width:100%;
+padding:14px;
+margin-top:18px;
+border:none;
+border-radius:12px;
+background:#000;
+color:#FFD100;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
 }
 
-.option input:checked + .option-content {
-    border-color: #2563EB;
-    background: #EFF6FF;
-    box-shadow: 0 0 0 2px rgba(37,99,235,.1);
+button:hover{
+opacity:.95;
 }
 
-.icon {
-    font-size: 25px;
-    width: 35px;
-}
-
-.option-text {
-    font-weight: 600;
-    color: #1F2937;
-}
-
-.option-description {
-    display: block;
-    font-size: 13px;
-    font-weight: normal;
-    color: #6B7280;
-    margin-top: 3px;
-}
-
-/* SELECTED PURPOSE */
-
-.purpose-preview {
-    display: none;
-    margin-top: 20px;
-    padding: 15px;
-    background: #EFF6FF;
-    border-left: 5px solid #2563EB;
-    border-radius: 10px;
-    line-height: 1.5;
-}
-
-/* CONFIRMATION */
-
-.confirmation {
-    margin-top: 25px;
-    padding: 18px;
-    background: #F8FAFC;
-    border-radius: 12px;
-    border: 1px solid #E5E7EB;
-}
-
-.confirmation label {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    line-height: 1.5;
-    cursor: pointer;
-}
-
-.confirmation input {
-    margin-top: 4px;
-    width: 17px;
-    height: 17px;
-}
-
-/* BUTTONS */
-
-button {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #2563EB;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-button:hover {
-    background: #1D4ED8;
-}
-
-.back-button {
-    background: #6B7280;
-    margin-top: 12px;
-}
-
-.back-button:hover {
-    background: #4B5563;
-}
-
-.footer {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-size: 14px;
-}
-
-@media(max-width:600px) {
-
-    body {
-        padding: 10px;
-    }
-
-    .content {
-        padding: 20px;
-    }
-
-    .header {
-        padding: 25px 15px;
-    }
-
-    .header h1 {
-        font-size: 23px;
-    }
-
-    .summary-row {
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .summary-value {
-        text-align: left;
-    }
+.footer{
+text-align:center;
+padding:16px;
+font-size:13px;
+color:#000;
+font-weight:bold;
+background:#FFF8D6;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <h1>🇰🇪 APPLICATION</h1>
-
-        <p>Application Summary & Purpose</p>
-
-        <div class="progress">
-            <div class="progress-fill"></div>
-        </div>
-
-        <p>Step 2 of 3</p>
-
-    </div>
-
-
-    <!-- MAIN CONTENT -->
-
-    <div class="content">
-
-        <div class="notice">
-
-            <strong>📋 Application Summary</strong><br>
-
-            Please review the information below and select the
-            main purpose of the funds before continuing.
-
-        </div>
-
-
-        <!-- APPLICATION SUMMARY -->
-
-        <div class="card">
-
-            <h2>👤 Applicant Information</h2>
-
-            <div class="summary">
-
-                <div class="summary-title">
-                    Application Details
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Name</span>
-                    <span class="summary-value" id="fullname">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Phone</span>
-                    <span class="summary-value" id="phone">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">National ID</span>
-                    <span class="summary-value" id="national_id">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Age</span>
-                    <span class="summary-value" id="age">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Occupation</span>
-                    <span class="summary-value" id="occupation">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">County</span>
-                    <span class="summary-value" id="county">
-                        Not provided
-                    </span>
-                </div>
-
-                <div class="summary-row">
-                    <span class="summary-label">Source</span>
-                    <span class="summary-value" id="source">
-                        Not provided
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PURPOSE OF FUNDS -->
-
-        <div class="card">
-
-            <h2>💰 Purpose of Funds</h2>
-
-            <p>
-                Select the main purpose for which the funds will be used.
-            </p>
-
-
-            <!-- BUSINESS -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Business"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🏪</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Business
-                        </span>
-
-                        <span class="option-description">
-                            Starting, expanding, or supporting a business.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- EDUCATION -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Education"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🎓</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Education
-                        </span>
-
-                        <span class="option-description">
-                            School fees, training, or education expenses.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- AGRICULTURE -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Agriculture"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🌱</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Agriculture
-                        </span>
-
-                        <span class="option-description">
-                            Farming, livestock, or agricultural activities.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- MEDICAL -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Medical Expenses"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🏥</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Medical Expenses
-                        </span>
-
-                        <span class="option-description">
-                            Healthcare, treatment, or medication expenses.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- HOUSING -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Housing"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🏠</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Housing
-                        </span>
-
-                        <span class="option-description">
-                            Rent, accommodation, or housing improvements.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- EMERGENCY -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Emergency Expenses"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🚨</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Emergency Expenses
-                        </span>
-
-                        <span class="option-description">
-                            Unexpected or urgent financial needs.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- HOUSEHOLD -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Household Needs"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">🏡</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Household Needs
-                        </span>
-
-                        <span class="option-description">
-                            General household and family expenses.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- DEBT -->
-
-            <label class="option">
-
-                <input
-                    type="radio"
-                    name="purpose"
-                    value="Debt Repayment"
-                >
-
-                <span class="option-content">
-
-                    <span class="icon">💳</span>
-
-                    <span>
-
-                        <span class="option-text">
-                            Debt Repayment
-                        </span>
-
-                        <span class="option-description">
-                            Repayment of existing financial obligations.
-                        </span>
-
-                    </span>
-
-                </span>
-
-            </label>
-
-
-            <!-- PURPOSE PREVIEW -->
-
-            <div
-                id="purposePreview"
-                class="purpose-preview"
-            >
-
-                <strong>Selected Purpose:</strong>
-
-                <span id="selectedPurpose"></span>
-
-            </div>
-
-        </div>
-
-
-        <!-- FINAL CONFIRMATION -->
-
-        <div class="confirmation">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="informationConfirm"
-                >
-
-                <span>
-
-                    <strong>
-                        I confirm the above information is correct.
-                    </strong>
-
-                    I have reviewed the application details and confirm
-                    that the information provided is accurate and
-                    complete to the best of my knowledge.
-
-                </span>
-
-            </label>
-
-        </div>
-
-
-        <!-- CONTINUE -->
-
-        <button
-            id="continueButton"
-            type="button"
-        >
-            Continue to Final Review →
-        </button>
-
-
-        <!-- BACK -->
-
-        <button
-            id="backButton"
-            type="button"
-            class="back-button"
-        >
-            ← Back to Step 1
-        </button>
-
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-        🔒 Application Review & Confirmation
-    </div>
+<div class="header">
+<h1>🇺🇬 MoMo Funds Uganda</h1>
+<p>Application – Step 2</p>
+</div>
+
+<div class="content">
+
+<div class="title">💰 Purpose of Funds</div>
+<p class="subtitle">Select the main purpose for which the funds will be used.</p>
+
+<form id="page2Form">
+
+<label class="option">
+<input type="radio" name="purpose" value="Business" required>
+<div class="icon">🏪</div>
+<div class="text">
+<h3>Business</h3>
+<p>Starting, expanding, or supporting a business.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Education">
+<div class="icon">🎓</div>
+<div class="text">
+<h3>Education</h3>
+<p>School fees, training, or education expenses.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Agriculture">
+<div class="icon">🌱</div>
+<div class="text">
+<h3>Agriculture</h3>
+<p>Farming, livestock, or agricultural activities.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Medical Expenses">
+<div class="icon">🏥</div>
+<div class="text">
+<h3>Medical Expenses</h3>
+<p>Healthcare, treatment, or medication expenses.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Housing">
+<div class="icon">🏠</div>
+<div class="text">
+<h3>Housing</h3>
+<p>Rent, accommodation, or housing improvements.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Emergency Expenses">
+<div class="icon">🚨</div>
+<div class="text">
+<h3>Emergency Expenses</h3>
+<p>Unexpected or urgent financial needs.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Household Needs">
+<div class="icon">🏡</div>
+<div class="text">
+<h3>Household Needs</h3>
+<p>General household and family expenses.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<label class="option">
+<input type="radio" name="purpose" value="Debt Repayment">
+<div class="icon">💳</div>
+<div class="text">
+<h3>Debt Repayment</h3>
+<p>Repayment of existing financial obligations.</p>
+</div>
+<div class="checkmark"></div>
+</label>
+
+<div class="selected-box">
+Selected Purpose: <span id="selectedPurpose">None</span>
+</div>
+
+<button type="submit">Continue to Step 3 →</button>
+
+</form>
 
 </div>
 
+<div class="footer">
+© 2026 MoMo Funds Uganda
+</div>
+
+</div>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-
-
-    /*
-     * LOAD INFORMATION FROM STEP 1
-     */
-
-    document.getElementById("fullname").textContent =
-        localStorage.getItem("fullname") || "Not provided";
-
-    document.getElementById("phone").textContent =
-        localStorage.getItem("phone") || "Not provided";
-
-    document.getElementById("national_id").textContent =
-        localStorage.getItem("national_id") || "Not provided";
-
-    document.getElementById("age").textContent =
-        localStorage.getItem("age") || "Not provided";
-
-    document.getElementById("occupation").textContent =
-        localStorage.getItem("occupation") || "Not provided";
-
-    document.getElementById("county").textContent =
-        localStorage.getItem("county") || "Not provided";
-
-    document.getElementById("source").textContent =
-        localStorage.getItem("source") || "Not provided";
-
-
-    /*
-     * RESTORE PREVIOUSLY SELECTED PURPOSE
-     */
-
-    const savedPurpose =
-        localStorage.getItem("purpose");
-
-    if (savedPurpose) {
-
-        const savedOption =
-            document.querySelector(
-                'input[name="purpose"][value="' +
-                savedPurpose +
-                '"]'
-            );
-
-        if (savedOption) {
-
-            savedOption.checked = true;
-
-            showPurpose(savedPurpose);
-
-        }
-
-    }
-
-
-    /*
-     * PURPOSE SELECTION
-     */
-
-    const purposeOptions =
-        document.querySelectorAll(
-            'input[name="purpose"]'
-        );
-
-
-    purposeOptions.forEach(function (option) {
-
-        option.addEventListener(
-            "change",
-            function () {
-
-                showPurpose(this.value);
-
-            }
-        );
-
-    });
-
-
-    /*
-     * DISPLAY SELECTED PURPOSE
-     */
-
-    function showPurpose(value) {
-
-        document.getElementById(
-            "selectedPurpose"
-        ).textContent = " " + value;
-
-        document.getElementById(
-            "purposePreview"
-        ).style.display = "block";
-
-    }
-
-
-    /*
-     * CONTINUE TO STEP 3
-     */
-
-    document.getElementById("continueButton")
-        .addEventListener("click", function () {
-
-
-            const selected =
-                document.querySelector(
-                    'input[name="purpose"]:checked'
-                );
-
-
-            const confirmation =
-                document.getElementById(
-                    "informationConfirm"
-                );
-
-
-            /*
-             * CHECK PURPOSE
-             */
-
-            if (!selected) {
-
-                alert(
-                    "Please select the purpose of the funds."
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * CHECK CONFIRMATION
-             */
-
-            if (!confirmation.checked) {
-
-                alert(
-                    "Please confirm that the above information is correct."
-                );
-
-                return;
-
-            }
-
-
-            /*
-             * SAVE PURPOSE
-             */
-
-            localStorage.setItem(
-                "purpose",
-                selected.value
-            );
-
-
-            /*
-             * SAVE CONFIRMATION
-             */
-
-            localStorage.setItem(
-                "informationConfirmed",
-                "true"
-            );
-
-
-            /*
-             * GO TO STEP 3
-             */
-
-            window.location.href = "page3.html";
-
-        });
-
-
-    /*
-     * BACK TO STEP 1
-     */
-
-    document.getElementById("backButton")
-        .addEventListener("click", function () {
-
-            window.location.href = "step1.html";
-
-        });
-
+const options=document.querySelectorAll('input[name="purpose"]');
+const selectedText=document.getElementById("selectedPurpose");
+
+options.forEach(option=>{
+option.addEventListener("change",function(){
+document.querySelectorAll(".option").forEach(card=>card.classList.remove("active"));
+this.closest(".option").classList.add("active");
+selectedText.textContent=this.value;
+});
 });
 
+document.getElementById("page2Form").addEventListener("submit",function(e){
+e.preventDefault();
+
+const selected=document.querySelector('input[name="purpose"]:checked');
+
+if(!selected){
+alert("Please select the purpose of the funds.");
+return;
+}
+
+localStorage.setItem("purpose",selected.value);
+window.location.href="page3.html";
+});
 </script>
 
 </body>
-  </html>
+</html>
