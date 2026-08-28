@@ -36,7 +36,7 @@ app.post("/api/uganda/stk-push", async (req, res) => {
       phone = "256" + phone.slice(1);
     }
 
-    // Validate Uganda number
+    // Validate Uganda number (256 + 9 digits)
     if (!/^256\d{9}$/.test(phone)) {
       return res.status(400).json({
         success: false,
@@ -46,12 +46,23 @@ app.post("/api/uganda/stk-push", async (req, res) => {
 
     amount = parseInt(amount, 10);
 
+    if (!Number.isInteger(amount) || amount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid amount."
+      });
+    }
+
+    const payload = {
+      phone,
+      amount
+    };
+
+    console.log("AUTOPAY REQUEST:", payload);
+
     const response = await axios.post(
       "https://autopay.co.ke/api/global/uganda/stk-push",
-      {
-        phone,
-        amount
-      },
+      payload,
       {
         headers: {
           Authorization: `Bearer ${AUTOPAY_SECRET}`,
@@ -59,6 +70,8 @@ app.post("/api/uganda/stk-push", async (req, res) => {
         }
       }
     );
+
+    console.log("AUTOPAY RESPONSE:", response.data);
 
     res.json(response.data);
 
@@ -84,6 +97,8 @@ app.get("/api/uganda/status/:id", async (req, res) => {
       }
     );
 
+    console.log("STATUS RESPONSE:", response.data);
+
     res.json(response.data);
 
   } catch (error) {
@@ -96,7 +111,7 @@ app.get("/api/uganda/status/:id", async (req, res) => {
   }
 });
 
-// Exchange rate
+// Uganda Exchange Rate
 app.get("/api/uganda/rate", async (req, res) => {
   try {
     const response = await axios.get(
@@ -117,7 +132,7 @@ app.get("/api/uganda/rate", async (req, res) => {
   }
 });
 
-// Uganda account
+// Uganda Wallet
 app.get("/api/uganda/account", async (req, res) => {
   try {
     const response = await axios.get(
@@ -138,7 +153,7 @@ app.get("/api/uganda/account", async (req, res) => {
   }
 });
 
-// Uganda transactions
+// Uganda Transactions
 app.get("/api/uganda/transactions", async (req, res) => {
   try {
     const response = await axios.get(
