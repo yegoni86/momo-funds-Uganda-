@@ -53,10 +53,7 @@ app.post("/api/uganda/stk-push", async (req, res) => {
       });
     }
 
-    const payload = {
-      phone,
-      amount
-    };
+    const payload = { phone, amount };
 
     console.log("AUTOPAY REQUEST:", payload);
 
@@ -67,33 +64,27 @@ app.post("/api/uganda/stk-push", async (req, res) => {
         headers: {
           Authorization: `Bearer ${AUTOPAY_SECRET}`,
           "Content-Type": "application/json"
-        }
+        },
+        timeout: 20000
       }
     );
 
     console.log("AUTOPAY RESPONSE:", response.data);
 
-const transactionId =
-  response.data?.data?.transaction_id ||
-  response.data?.data?.transactionId ||
-  response.data?.transaction_id ||
-  response.data?.transactionId ||
-  response.data?.data?.reference ||
-  response.data?.reference;
-
-res.json({
-  success: response.data?.success,
-  message: response.data?.message,
-  transactionId,
-  data: response.data?.data || {}
-});
+    res.json({
+      success: response.data.success,
+      message: response.data.message,
+      transactionId: response.data.data?.transaction_id,
+      data: response.data.data
+    });
 
   } catch (error) {
+    console.log("AUTOPAY STATUS:", error.response?.status);
     console.log("AUTOPAY ERROR:", error.response?.data || error.message);
 
     res.status(error.response?.status || 500).json({
       success: false,
-      message: error.response?.data?.message || "Payment request failed."
+      message: error.response?.data?.message || "AUTOPAY did not respond."
     });
   }
 });
@@ -137,6 +128,7 @@ app.get("/api/uganda/rate", async (req, res) => {
     );
 
     res.json(response.data);
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -158,6 +150,7 @@ app.get("/api/uganda/account", async (req, res) => {
     );
 
     res.json(response.data);
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -179,6 +172,7 @@ app.get("/api/uganda/transactions", async (req, res) => {
     );
 
     res.json(response.data);
+
   } catch (error) {
     res.status(500).json({
       success: false,
