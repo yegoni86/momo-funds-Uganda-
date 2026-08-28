@@ -2,184 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Select Fund Amount</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoFunds Uganda - Select Amount</title>
 
 <style>
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',Arial,sans-serif;
 }
 
 body{
-    background:linear-gradient(135deg,#0B7A2F,#2563EB);
-    padding:10px;
-    min-height:100vh;
+background:linear-gradient(135deg,#FFD100,#F5B000);
+padding:4px;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .container{
-    width:100%;
-    max-width:500px;
-    margin:auto;
-    background:#fff;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 8px 20px #0003;
+width:100%;
+max-width:370px;
+background:#fff;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 8px 18px rgba(0,0,0,.18);
 }
 
 .header{
-    background:linear-gradient(135deg,#0B7A2F,#2563EB);
-    color:#fff;
-    text-align:center;
-    padding:18px 10px;
+background:linear-gradient(135deg,#FFD100,#F5B000);
+color:#000;
+text-align:center;
+padding:16px 12px;
 }
 
-.header h1{
-    font-size:23px;
+.header h2{
+font-size:28px;
+font-weight:800;
+margin-bottom:6px;
+}
+
+#applicantName{
+font-size:22px;
+font-weight:800;
+display:block;
+margin:6px 0;
+}
+
+.header p{
+font-size:15px;
+line-height:1.4;
 }
 
 .content{
-    padding:15px;
+padding:12px;
 }
 
-.message{
-    background:#F0FDF4;
-    border-left:4px solid #16A34A;
-    padding:13px;
-    border-radius:8px;
-    margin-bottom:15px;
+.section-title{
+font-size:18px;
+font-weight:700;
+color:#000;
+margin-bottom:10px;
+text-align:center;
 }
 
-.message h3{
-    font-size:18px;
-    margin-bottom:5px;
-}
-
-.message p{
-    font-size:14px;
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
 }
 
 .option{
-    display:flex;
-    align-items:center;
-    padding:12px 14px;
-    margin-bottom:8px;
-    border:2px solid #ddd;
-    border-radius:10px;
-    font-size:20px;
-    font-weight:700;
-    min-height:50px;
-    cursor:pointer;
+position:relative;
+height:74px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:2px solid #E5E7EB;
+border-radius:12px;
+cursor:pointer;
+background:#fff;
+transition:.2s;
 }
 
 .option:hover{
-    border-color:#16A34A;
-    background:#F0FDF4;
+border-color:#000;
+background:#FFF8D6;
 }
 
 .option input{
-    margin-right:13px;
-    transform:scale(1.4);
-    accent-color:#16A34A;
+display:none;
 }
 
-.option:has(input:checked){
-    border-color:#16A34A;
-    background:#F0FDF4;
+.amount{
+font-size:20px;
+font-weight:900;
+color:#4B5563;
+text-align:center;
+}
+
+.checkmark{
+position:absolute;
+top:6px;
+right:6px;
+width:20px;
+height:20px;
+border:2px solid #C7C7C7;
+border-radius:50%;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.option.active{
+border-color:#000;
+background:#FFF8D6;
+}
+
+.option.active .checkmark{
+background:#000;
+border-color:#000;
+}
+
+.option.active .checkmark::after{
+content:"✓";
+color:#FFD100;
+font-size:13px;
+font-weight:bold;
+}
+
+.full-width{
+grid-column:1 / -1;
 }
 
 .summary{
-    margin-top:15px;
-    padding:18px;
-    background:#F9FAFB;
-    border-radius:10px;
-    border:2px solid #e5e7eb;
+margin-top:12px;
+padding:12px;
+background:#F9FAFB;
+border-radius:10px;
 }
 
 .summary p{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:14px;
-    font-size:15px;
-}
-
-.summary p:last-child{
-    margin-bottom:0;
-}
-
-.summary span{
-    font-size:24px;
-    font-weight:800;
-    color:#0B7A2F;
-    white-space:nowrap;
+font-size:14px;
+margin-bottom:5px;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    margin-top:15px;
-    border:0;
-    border-radius:9px;
-    background:linear-gradient(135deg,#16A34A,#0B7A2F);
-    color:#fff;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
+width:100%;
+padding:14px;
+margin-top:14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#000,#222);
+color:#FFD100;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
 }
 
 button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
-button:active{
-    transform:scale(.98);
-}
-
-.error{
-    display:none;
-    margin-top:12px;
-    padding:10px;
-    border-radius:8px;
-    background:#FEF2F2;
-    color:#B91C1C;
-    font-size:14px;
-    text-align:center;
+opacity:.6;
+cursor:not-allowed;
 }
 
 .footer{
-    text-align:center;
-    padding:12px;
-    color:#666;
-    font-size:12px;
-}
-
-@media(max-width:360px){
-
-    .header h1{
-        font-size:20px;
-    }
-
-    .content{
-        padding:12px;
-    }
-
-    .option{
-        font-size:18px;
-        padding:10px;
-    }
-
-    .summary span{
-        font-size:21px;
-    }
-
-    .summary p{
-        font-size:14px;
-    }
+text-align:center;
+padding:10px;
+color:#666;
+font-size:11px;
 }
 </style>
 </head>
@@ -188,204 +181,175 @@ button:active{
 
 <div class="container">
 
-    <div class="header">
-        <h1>Select Fund Amount</h1>
-    </div>
+<div class="header">
+<h2>🎉 Congratulations</h2>
 
-    <div class="content">
+<p><strong id="applicantName">Applicant</strong></p>
 
-        <div class="message">
-            <h3>Amount Selection</h3>
-            <p>Please select the amount you wish to apply for.</p>
-        </div>
+<p>
+You're eligible to continue your MoFunds Uganda application.
+Kindly choose the amount you want and continue.
+</p>
+</div>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="22000" data-fee="1">
-            KSh 22,000
-        </label>
+<div class="content">
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="30000" data-fee="450">
-            KSh 30,000
-        </label>
+<div class="section-title">
+💰 Select Your MoFunds Uganda Amount
+</div>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="40000" data-fee="550">
-            KSh 40,000
-        </label>
+<div class="grid">
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="50000" data-fee="650">
-            KSh 50,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="500000" data-fee="10000">
+<span class="checkmark"></span>
+<span class="amount">UGX 500,000</span>
+</label>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="65000" data-fee="800">
-            KSh 65,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="1000000" data-fee="20000">
+<span class="checkmark"></span>
+<span class="amount">UGX 1,000,000</span>
+</label>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="75000" data-fee="900">
-            KSh 75,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="2000000" data-fee="35000">
+<span class="checkmark"></span>
+<span class="amount">UGX 2,000,000</span>
+</label>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="85000" data-fee="1000">
-            KSh 85,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="3000000" data-fee="50000">
+<span class="checkmark"></span>
+<span class="amount">UGX 3,000,000</span>
+</label>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="110000" data-fee="1200">
-            KSh 110,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="5000000" data-fee="70000">
+<span class="checkmark"></span>
+<span class="amount">UGX 5,000,000</span>
+</label>
 
-        <label class="option">
-            <input type="radio" name="amount"
-                   value="150000" data-fee="1500">
-            KSh 150,000
-        </label>
+<label class="option">
+<input type="radio" name="amount" value="7000000" data-fee="90000">
+<span class="checkmark"></span>
+<span class="amount">UGX 7,000,000</span>
+</label>
 
-        <div class="summary">
+<label class="option">
+<input type="radio" name="amount" value="10000000" data-fee="120000">
+<span class="checkmark"></span>
+<span class="amount">UGX 10,000,000</span>
+</label>
 
-            <p>
-                <strong>Amount Selected:</strong>
-                <span id="selected">KSh ---</span>
-            </p>
+<label class="option">
+<input type="radio" name="amount" value="15000000" data-fee="150000">
+<span class="checkmark"></span>
+<span class="amount">UGX 15,000,000</span>
+</label>
 
-            <p>
-                <strong>Processing Fee:</strong>
-                <span id="fee">KSh ---</span>
-            </p>
+<label class="option full-width">
+<input type="radio" name="amount" value="20000000" data-fee="200000">
+<span class="checkmark"></span>
+<span class="amount">UGX 20,000,000</span>
+</label>
 
-        </div>
+</div>
 
-        <div class="error" id="error">
-            Please select an amount first.
-        </div>
+<div class="summary">
+<p><strong>💵 Amount Selected:</strong> <span id="selected">UGX ---</span></p>
+<p><strong>🧾 Application Fee:</strong> <span id="fee">UGX ---</span></p>
 
-        <button
-            type="button"
-            id="continueButton"
-            disabled>
-            Continue →
-        </button>
+<p style="margin-top:8px;color:#6B7280;">
+👆 Select an amount to see the application fee.
+</p>
+</div>
 
-    </div>
+<button id="continueButton" type="button">
+➡️ Continue
+</button>
 
-    <div class="footer">
-        Application Portal
-    </div>
+</div>
+
+<div class="footer">
+© 2026 MoFunds Uganda
+</div>
 
 </div>
 
 <script>
+const radios=document.querySelectorAll('input[name="amount"]');
 
-const radios =
-    document.querySelectorAll(
-        'input[name="amount"]'
-    );
+let amount="";
+let fee="";
 
-const selected =
-    document.getElementById("selected");
+const savedName=
+localStorage.getItem("fullName")||
+localStorage.getItem("fullname")||
+"Applicant";
 
-const fee =
-    document.getElementById("fee");
+document.getElementById("applicantName").textContent=savedName;
 
-const continueButton =
-    document.getElementById("continueButton");
+function updateSummary(selectedAmount,selectedFee){
+document.getElementById("selected").textContent=
+"UGX "+Number(selectedAmount).toLocaleString("en-UG");
 
-const error =
-    document.getElementById("error");
+document.getElementById("fee").textContent=
+"UGX "+Number(selectedFee).toLocaleString("en-UG");
+}
 
-let selectedAmount = null;
-let selectedFee = null;
+radios.forEach(radio=>{
+radio.addEventListener("change",function(){
 
+document.querySelectorAll(".option").forEach(opt=>opt.classList.remove("active"));
+this.closest(".option").classList.add("active");
 
-/*
-|--------------------------------------------------------------------------
-| Amount selection
-|--------------------------------------------------------------------------
-*/
+amount=this.value;
+fee=this.dataset.fee;
 
-radios.forEach((radio) => {
+// Save immediately
+localStorage.setItem("selectedAmount",amount);
+localStorage.setItem("processingFee",fee);
 
-    radio.addEventListener("change", () => {
-
-        selectedAmount =
-            Number(radio.value);
-
-        selectedFee =
-            Number(radio.dataset.fee);
-
-        selected.textContent =
-            "KSh " +
-            selectedAmount.toLocaleString("en-KE");
-
-        fee.textContent =
-            "KSh " +
-            selectedFee.toLocaleString("en-KE");
-
-        continueButton.disabled = false;
-
-        error.style.display = "none";
-    });
+updateSummary(amount,fee);
 
 });
+});
 
+// Restore previous selection
+const savedAmount=localStorage.getItem("selectedAmount");
 
-/*
-|--------------------------------------------------------------------------
-| Continue to payment
-|--------------------------------------------------------------------------
-*/
+if(savedAmount){
+const savedRadio=document.querySelector(`input[name="amount"][value="${savedAmount}"]`);
+if(savedRadio){
+savedRadio.checked=true;
+savedRadio.closest(".option").classList.add("active");
 
-continueButton.addEventListener(
-    "click",
-    () => {
+amount=savedRadio.value;
+fee=savedRadio.dataset.fee;
 
-        if (
-            !selectedAmount ||
-            !selectedFee
-        ) {
+localStorage.setItem("processingFee",fee);
 
-            error.style.display = "block";
+updateSummary(amount,fee);
+}
+}
 
-            return;
-        }
+document.getElementById("continueButton").addEventListener("click",()=>{
 
+if(!amount){
+alert("Please select an amount.");
+return;
+}
 
-        /*
-         * These values are used by the payment page
-         * for display/navigation.
-         *
-         * The backend must independently validate
-         * the amount and fee before charging.
-         */
+// Save again before redirect
+localStorage.setItem("selectedAmount",amount);
+localStorage.setItem("processingFee",fee);
+localStorage.setItem("loanAmount",amount);
+localStorage.setItem("requestedAmount",amount);
 
-        localStorage.setItem(
-            "loanAmount",
-            String(selectedAmount)
-        );
+window.location.href="payment.html";
 
-        localStorage.setItem(
-            "processingFee",
-            String(selectedFee)
-        );
-
-
-        window.location.href =
-            "payment.html";
-    }
-);
-
+});
 </script>
 
 </body>
