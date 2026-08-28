@@ -1,10 +1,12 @@
 {
-  "name": "nyota-funds-backend",
+  "name": "mofunds-uganda-backend",
   "version": "1.0.0",
-  "description": "NYOTA Funds demo backend",
+  "description": "MoFunds Uganda backend server",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "engines": {
     "node": ">=20"
