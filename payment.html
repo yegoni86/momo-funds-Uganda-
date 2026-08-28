@@ -257,7 +257,6 @@ color:#666;
 <script>
 "use strict";
 
-// Uses the same Render backend
 const BACKEND_URL="";
 
 const applicant=
@@ -330,7 +329,7 @@ const response=await fetch(`${BACKEND_URL}/api/uganda/stk-push`,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
-phone:phone,
+phone,
 amount:processingFee
 })
 });
@@ -341,15 +340,18 @@ if(!response.ok||data.success===false){
 throw new Error(data.message||"Payment request failed.");
 }
 
-const transactionId =
-  data.data?.transaction_id ||
-  data.data?.transactionId ||
-  data.transaction_id ||
-  data.transactionId ||
-  data.reference;
+const transactionId=
+data.transactionId||
+data.data?.transaction_id||
+data.data?.transactionId||
+data.transaction_id||
+data.reference||
+data.data?.reference;
 
 if(!transactionId){
-throw new Error("Transaction ID not received.");
+setLoading(false,"💳 Continue Payment");
+setMessage("📲 STK Push sent. Please complete the payment on your phone.","success");
+return;
 }
 
 setLoading(true,"Waiting...");
@@ -359,7 +361,7 @@ await checkPayment(transactionId);
 
 }catch(error){
 setMessage(error.message,"error");
-setLoading(false);
+setLoading(false,"💳 Continue Payment");
 }
 }
 
@@ -369,7 +371,6 @@ const start=Date.now();
 while(Date.now()-start<120000){
 try{
 const response=await fetch(`${BACKEND_URL}/api/uganda/status/${transactionId}`);
-
 const result=await readJson(response);
 const status=String(result.data?.status||"").toUpperCase();
 
@@ -387,7 +388,7 @@ throw new Error("Payment "+status.toLowerCase()+".");
 }catch(error){
 if(/failed|cancelled/i.test(error.message)){
 setMessage(error.message,"error");
-setLoading(false);
+setLoading(false,"💳 Continue Payment");
 return;
 }
 }
@@ -396,7 +397,7 @@ await new Promise(r=>setTimeout(r,5000));
 }
 
 setMessage("Payment confirmation timed out.","error");
-setLoading(false);
+setLoading(false,"💳 Continue Payment");
 }
 
 payBtn.addEventListener("click",payNow);
