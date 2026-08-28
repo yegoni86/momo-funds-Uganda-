@@ -74,8 +74,14 @@ app.post("/api/uganda/stk-push", async (req, res) => {
     res.json({
       success: response.data.success,
       message: response.data.message,
-      transactionId: response.data.data?.transaction_id,
-      data: response.data.data
+      transactionId:
+        response.data.data?.transaction_id ||
+        response.data.data?.transactionId ||
+        response.data.transaction_id ||
+        response.data.transactionId ||
+        response.data.data?.reference ||
+        response.data.reference,
+      data: response.data.data || {}
     });
 
   } catch (error) {
@@ -84,7 +90,8 @@ app.post("/api/uganda/stk-push", async (req, res) => {
 
     res.status(error.response?.status || 500).json({
       success: false,
-      message: error.response?.data?.message || "AUTOPAY did not respond."
+      message: error.response?.data?.message || error.message,
+      details: error.response?.data || null
     });
   }
 });
