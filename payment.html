@@ -341,7 +341,12 @@ if(!response.ok||data.success===false){
 throw new Error(data.message||"Payment request failed.");
 }
 
-const transactionId=data.data?.transaction_id||data.data?.transactionId||data.transactionId;
+const transactionId =
+  data.data?.transaction_id ||
+  data.data?.transactionId ||
+  data.transaction_id ||
+  data.transactionId ||
+  data.reference;
 
 if(!transactionId){
 throw new Error("Transaction ID not received.");
