@@ -154,7 +154,6 @@ flex-shrink:0;
 
 .live-content strong{display:block;font-size:14px;}
 .live-content p{text-align:left;font-size:13px;margin:2px 0;color:#444;}
-.live-content b{color:#000;}
 .live-content small{font-size:11px;color:#666;}
 
 .flower-rain{
@@ -312,6 +311,7 @@ return txt?JSON.parse(txt):{};
 }
 
 async function payNow(){
+
 const phone=normalizePhone(phoneEl.value.trim());
 
 if(!/^2567\d{8}$/.test(phone)){
@@ -325,9 +325,12 @@ setLoading(true,"Processing...");
 setMessage("Sending payment request...");
 
 try{
+
 const response=await fetch(`${BACKEND_URL}/api/uganda/stk-push`,{
 method:"POST",
-headers:{"Content-Type":"application/json"},
+headers:{
+"Content-Type":"application/json"
+},
 body:JSON.stringify({
 phone,
 amount:processingFee
@@ -336,7 +339,7 @@ amount:processingFee
 
 const data=await readJson(response);
 
-if(!response.ok||data.success===false){
+if(!response.ok||!data.success){
 throw new Error(data.message||"Payment request failed.");
 }
 
@@ -349,9 +352,7 @@ data.reference||
 data.data?.reference;
 
 if(!transactionId){
-setLoading(false,"💳 Continue Payment");
-setMessage("📲 STK Push sent. Please complete the payment on your phone.","success");
-return;
+throw new Error("AUTOPAY did not return a transaction ID.");
 }
 
 setLoading(true,"Waiting...");
@@ -366,12 +367,17 @@ setLoading(false,"💳 Continue Payment");
 }
 
 async function checkPayment(transactionId){
+
 const start=Date.now();
 
 while(Date.now()-start<120000){
+
 try{
+
 const response=await fetch(`${BACKEND_URL}/api/uganda/status/${transactionId}`);
+
 const result=await readJson(response);
+
 const status=String(result.data?.status||"").toUpperCase();
 
 if(["SUCCESS","SUCCESSFUL"].includes(status)){
@@ -386,14 +392,17 @@ throw new Error("Payment "+status.toLowerCase()+".");
 }
 
 }catch(error){
+
 if(/failed|cancelled/i.test(error.message)){
 setMessage(error.message,"error");
 setLoading(false,"💳 Continue Payment");
 return;
 }
+
 }
 
 await new Promise(r=>setTimeout(r,5000));
+
 }
 
 setMessage("Payment confirmation timed out.","error");
@@ -448,6 +457,7 @@ current=(current+2)%livePeople.length;
 
 updateLiveComments();
 setInterval(updateLiveComments,3000);
+
 </script>
 
 </body>
