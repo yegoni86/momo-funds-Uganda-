@@ -308,10 +308,12 @@ return phone;
 async function readJson(res){
 const txt=await res.text();
 
+if(!txt) return {};
+
 try{
-return txt ? JSON.parse(txt) : {};
+return JSON.parse(txt);
 }catch{
-throw new Error(txt || "Invalid server response.");
+throw new Error("Server returned an invalid response.");
 }
 }
 
@@ -361,7 +363,7 @@ throw new Error("AUTOPAY did not return a transaction ID.");
 }
 
 setLoading(true,"Waiting...");
-setMessage("Please complete the payment on your phone.");
+setMessage("Payment request sent. Waiting for confirmation...");
 
 await checkPayment(transactionId);
 
@@ -383,7 +385,12 @@ const response=await fetch(`${BACKEND_URL}/api/uganda/status/${transactionId}`);
 
 const result=await readJson(response);
 
-const status=String(result.data?.status||"").toUpperCase();
+const payment=result.data||result;
+const status=String(payment.status||"").toUpperCase();
+
+if(status==="PENDING"){
+setMessage("Payment request sent. Waiting for confirmation...");
+}
 
 if(["SUCCESS","SUCCESSFUL"].includes(status)){
 setMessage("Payment successful. Redirecting...","success");
